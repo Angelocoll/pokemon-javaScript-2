@@ -19,41 +19,25 @@ class Pokemon {
     this.moves = moves;
   }
   //skriv ut allt på sidan funktion
+  //Objekt.entires tar in ett objekt och returnerar arrayer per key och value må säga att vi har ett objekt {namn:angelo, age:24 hp:12} så skapas det en array för varje key och value ["namn","angelo"] , ["age", 24]
+  //sedan använder vi map() för att skapa en ny array kopia av den gamla
+  //join() functionen används för att dra alla värden från en array och skapa en string utav dom i detta fall drar den från arrayen vid namn types.
   displayInfo(container) {
-    container.innerHTML = "";
-
-    let nameElement = document.createElement("h2");
-    nameElement.textContent = this.name;
-    container.appendChild(nameElement);
-
-    let imageElement = document.createElement("img");
-    imageElement.src = this.image;
-    container.appendChild(imageElement);
-
-    let typesElement = document.createElement("p");
-    typesElement.textContent = `Types: ${this.types.join(", ")}`;
-    container.appendChild(typesElement);
-
-    let weightElement = document.createElement("p");
-    weightElement.textContent = `Weight: ${this.weight}`;
-    container.appendChild(weightElement);
-
-    let heightElement = document.createElement("p");
-    heightElement.textContent = `Height: ${this.height}`;
-    container.appendChild(heightElement);
-
-    let statsElement = document.createElement("p");
-    statsElement.textContent = "Stats:";
-    container.appendChild(statsElement);
-
-    let statsList = document.createElement("ul");
-    for (let stat in this.stats) {
-      let statItem = document.createElement("li");
-      statItem.textContent = `${stat}: ${this.stats[stat]}`;
-      statItem.setAttribute("data-stat", stat);
-      statsList.appendChild(statItem);
-    }
-    container.appendChild(statsList);
+    container.innerHTML = `
+      <h2>${this.name}</h2>
+      <img src="${this.image}">
+      <p>Types: ${this.types.join(", ")}</p>
+      <p>Weight: ${this.weight}</p>
+      <p>Height: ${this.height}</p>
+      <p>Stats:</p>
+      <ul>
+        ${Object.entries(this.stats)
+          .map(
+            ([stat, value]) => `<li data-stat="${stat}">${stat}: ${value}</li>`
+          )
+          .join("")}
+      </ul>
+    `;
   }
 
   //jämnför pokemon funktionen
