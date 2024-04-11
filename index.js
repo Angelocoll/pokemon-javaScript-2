@@ -135,11 +135,11 @@ let GetData = async () => {
     let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
     let data = await response.json();
     let pokemonResults = data.results;
-
+    //loppar igenom pokemons url man fick med och där finns all data redo att hämtas enkelt och smidigt
     for (let pokemonResult of pokemonResults) {
       let response = await fetch(pokemonResult.url);
       let pokemonData = await response.json();
-      //med map hittar vi även pokemonens moves genom att lägga in keyn move och lägger in dom i en instans med pokemonens namn sedan pushar vi in infon i arrayen för att ha en fullt fungerade array
+      console.log(pokemonData);
       let moves = pokemonData.moves.map((move) => ({ name: move.move.name }));
       //skapar en instans av dom sedan pushar in dom i min array för att lättare få ut infon
       let newPokemon = new Pokemon(
